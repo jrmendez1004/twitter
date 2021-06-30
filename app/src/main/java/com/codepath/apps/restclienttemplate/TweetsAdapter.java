@@ -46,14 +46,24 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
+    public void clear(){
+        tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Tweet> list){
+        tweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivProfileImage;
         TextView body;
         TextView screen_name;
         TextView createdAt;
         //RecyclerView attached_images;
-        List<String> attImages;
-        AttachedImagesAdapter adapter;
+        //List<String> attImages;
+        //AttachedImagesAdapter adapter;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
@@ -62,7 +72,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             createdAt = itemView.findViewById(R.id.tvCreatedAt);
 
             //attached_images = itemView.findViewById(R.id.rvAttachedImages);
-            adapter = new AttachedImagesAdapter(context, attImages);
+            //adapter = new AttachedImagesAdapter(context, attImages);
         }
 
         public void bind(Tweet tweet) {
