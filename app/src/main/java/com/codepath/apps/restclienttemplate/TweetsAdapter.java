@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -34,7 +36,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Tweet tweet = tweets.get(position);
         holder.bind(tweet);
     }
@@ -48,17 +50,37 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivProfileImage;
         TextView body;
         TextView screen_name;
+        TextView createdAt;
+        //RecyclerView attached_images;
+        List<String> attImages;
+        AttachedImagesAdapter adapter;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             body = itemView.findViewById(R.id.tvBody);
             screen_name = itemView.findViewById(R.id.tvScreenName);
+            createdAt = itemView.findViewById(R.id.tvCreatedAt);
+
+            //attached_images = itemView.findViewById(R.id.rvAttachedImages);
+            adapter = new AttachedImagesAdapter(context, attImages);
         }
 
         public void bind(Tweet tweet) {
             body.setText(tweet.body);
             screen_name.setText(tweet.user.screenName);
+            createdAt.setText(tweet.createdAt);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+
+            /*if(tweet.hasMedia) {
+                if(tweet.embeddedMedia.size() > 1)
+                    attached_images.setLayoutManager(new GridLayoutManager(context, 2));
+                else
+                    attached_images.setLayoutManager(new GridLayoutManager(context, 1));
+                attached_images.setAdapter(adapter);
+                for(int i = 0; i < tweet.embeddedMedia.size(); i++)
+                    attImages.add(tweet.embeddedMedia.get(i));
+            }
+            adapter.notifyDataSetChanged();*/
         }
     }
 }
