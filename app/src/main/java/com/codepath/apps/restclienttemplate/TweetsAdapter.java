@@ -80,7 +80,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 for(int i = 0; i < tweet.embeddedMedia.size(); i++)
                     attImages.add(tweet.embeddedMedia.get(i));
             }
-            adapter.notifyDataSetChanged();*/
+            adapter.notifyItemInsert();*/
         }
     }
 }
