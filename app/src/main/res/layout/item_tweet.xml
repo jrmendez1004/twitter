@@ -55,4 +55,14 @@
         android:layout_toEndOf="@+id/tvScreenName"
         tools:text="500yr" />
 
+    <ImageView
+        android:id="@+id/ivAttachedImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </RelativeLayout>

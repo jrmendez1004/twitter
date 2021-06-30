@@ -61,9 +61,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView body;
         TextView screen_name;
         TextView createdAt;
+
+        ImageView attached;
         //RecyclerView attached_images;
         //List<String> attImages;
         //AttachedImagesAdapter adapter;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
@@ -71,8 +74,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             screen_name = itemView.findViewById(R.id.tvScreenName);
             createdAt = itemView.findViewById(R.id.tvCreatedAt);
 
-            //attached_images = itemView.findViewById(R.id.rvAttachedImages);
-            //adapter = new AttachedImagesAdapter(context, attImages);
+            attached = itemView.findViewById(R.id.ivAttachedImage);
         }
 
         public void bind(Tweet tweet) {
@@ -81,7 +83,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             createdAt.setText(tweet.createdAt);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
 
-            /*if(tweet.hasMedia) {
+            if(tweet.hasMedia){
+                Glide.with(context).load(tweet.embeddedMedia.get(0)).into(attached);
+            }
+            //attached_images = itemView.findViewById(R.id.rvAttachedImages);
+            /*adapter = new AttachedImagesAdapter(context, attImages);
+            if(tweet.hasMedia) {
                 if(tweet.embeddedMedia.size() > 1)
                     attached_images.setLayoutManager(new GridLayoutManager(context, 2));
                 else
@@ -89,8 +96,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 attached_images.setAdapter(adapter);
                 for(int i = 0; i < tweet.embeddedMedia.size(); i++)
                     attImages.add(tweet.embeddedMedia.get(i));
-            }
-            adapter.notifyItemInsert();*/
+            }*/
+            //adapter.notifyDataSetChanged();
         }
     }
 }

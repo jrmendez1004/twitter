@@ -34,7 +34,7 @@ public class AttachedImagesAdapter extends RecyclerView.Adapter<AttachedImagesAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String image = images.get(position);
-        holder.Bind(image);
+        holder.bind(image);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AttachedImagesAdapter extends RecyclerView.Adapter<AttachedImagesAd
             attachedImage = itemView.findViewById(R.id.ivAttached);
         }
 
-        public void Bind(String image){
+        public void bind(String image){
             Glide.with(context).load(image).into(attachedImage);
         }
     }

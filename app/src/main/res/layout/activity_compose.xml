@@ -8,6 +8,18 @@
     tools:context=".ComposeActivity">
 
 
+    <Button
+        android:id="@+id/btnTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/counter"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="Tweet" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/counter"
         android:layout_width="match_parent"
@@ -22,27 +34,12 @@
             android:id="@+id/etCompose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false"
-            android:layout_gravity="start|top"
+            android:layout_weight="1"
             android:ems="10"
+            android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:minLines="5"
-            tools:text="Test this" />
+            android:minLines="5" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/counter"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="317dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="514dp"
-        android:text="Tweet" />
 </RelativeLayout>

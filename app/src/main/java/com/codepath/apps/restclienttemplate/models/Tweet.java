@@ -18,8 +18,9 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
-    //public boolean hasMedia;
-    //public List<String> embeddedMedia;
+
+    public boolean hasMedia;
+    public List<String> embeddedMedia;
 
     public Tweet(){
 
@@ -35,7 +36,7 @@ public class Tweet {
         tweet.createdAt = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
-        /*JSONObject entities = jsonObject.getJSONObject("entities");
+        JSONObject entities = jsonObject.getJSONObject("entities");
         if(entities.has("media")){
             JSONArray media = entities.getJSONArray("media");
             tweet.hasMedia = true;
@@ -47,7 +48,7 @@ public class Tweet {
         else{
             tweet.hasMedia = false;
             tweet.embeddedMedia = new ArrayList<>();
-        }*/
+        }
 
         return tweet;
     }
