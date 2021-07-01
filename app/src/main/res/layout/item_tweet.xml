@@ -57,13 +57,14 @@
 
     <ImageView
         android:id="@+id/ivAttachedImage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginEnd="12dp"
         tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>

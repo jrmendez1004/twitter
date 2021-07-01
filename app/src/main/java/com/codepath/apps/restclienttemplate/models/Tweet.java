@@ -41,18 +41,23 @@ public class Tweet {
         tweet.createdAt = tweet.getDateCreated(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
-        JSONObject entities = jsonObject.getJSONObject("entities");
-        if(entities.has("media")){
-            JSONArray media = entities.getJSONArray("media");
-            tweet.hasMedia = true;
-            tweet.embeddedMedia = new ArrayList<>();
-            for(int i = 0; i < media.length(); i++) {
-                String temp = media.getJSONObject(i).getString("media_url_https");
-                tweet.embeddedMedia.add(temp);
+        if (!jsonObject.isNull("entities")) {
+            JSONObject entities = jsonObject.getJSONObject("entities");
+            if(entities.has("media")){
+                JSONArray media = entities.getJSONArray("media");
+                tweet.hasMedia = true;
+                tweet.embeddedMedia = new ArrayList<>();
+                for(int i = 0; i < media.length(); i++) {
+                    String temp = String.format("%s:large", media.getJSONObject(i).getString("media_url_https"));
+                    tweet.embeddedMedia.add(temp);
+                }
+                tweet.body = tweet.removeUrl(tweet.body);
             }
-            tweet.body = tweet.removeUrl(tweet.body);
-        }
-        else{
+            else{
+                tweet.hasMedia = false;
+                tweet.embeddedMedia = new ArrayList<>();
+            }
+        } else {
             tweet.hasMedia = false;
             tweet.embeddedMedia = new ArrayList<>();
         }

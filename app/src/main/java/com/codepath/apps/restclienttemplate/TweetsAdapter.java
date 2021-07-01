@@ -104,7 +104,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Glide.with(context).load(tweet.user.profileImageUrl).centerInside().transform(new RoundedCorners(100)).into(ivProfileImage);
 
             if(tweet.hasMedia){
-                Glide.with(context).load(tweet.embeddedMedia.get(0)).centerInside().transform(new RoundedCorners(30)).into(attached);
+                attached.setVisibility(View.VISIBLE);
+                Glide.with(context)
+                        .load(tweet.embeddedMedia.get(0))
+                        .centerInside()
+                        .transform(new RoundedCorners(30))
+                        .into(attached);
+            } else {
+                attached.setVisibility(View.GONE);
             }
             //attached_images = itemView.findViewById(R.id.rvAttachedImages);
             /*adapter = new AttachedImagesAdapter(context, attImages);
