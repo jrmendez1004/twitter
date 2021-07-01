@@ -1,5 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/btnLogout"
+        android:title="Logout"
+        android:onClick="onLogoutButton"
+        app:showAsAction="ifRoom|withText"></item>
+    <item
+        android:id="@+id/fab"
+        android:icon="@drawable/ic_vector_compose"
+        app:showAsAction="ifRoom"
+        android:onClick="onCompose"
+        android:title="Compose">
+    </item>
+
 
 </menu>
