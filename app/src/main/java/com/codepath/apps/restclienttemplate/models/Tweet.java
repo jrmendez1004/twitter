@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,11 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Parcel
 public class Tweet {
     public String body;
     public String createdAt;
+    public String date;
     public User user;
 
     public boolean hasMedia;
@@ -34,6 +38,7 @@ public class Tweet {
         else
             tweet.body = jsonObject.getString("text");
         tweet.createdAt = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
+        tweet.createdAt = tweet.getDateCreated(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
 
         JSONObject entities = jsonObject.getJSONObject("entities");
@@ -41,9 +46,11 @@ public class Tweet {
             JSONArray media = entities.getJSONArray("media");
             tweet.hasMedia = true;
             tweet.embeddedMedia = new ArrayList<>();
-            for(int i = 0; i < media.length(); i++)
-                tweet.embeddedMedia.add(media.getJSONObject(i).getString("media_url_https"));
-
+            for(int i = 0; i < media.length(); i++) {
+                String temp = media.getJSONObject(i).getString("media_url_https");
+                tweet.embeddedMedia.add(temp);
+            }
+            tweet.body = tweet.removeUrl(tweet.body);
         }
         else{
             tweet.hasMedia = false;
@@ -98,5 +105,35 @@ public class Tweet {
         }
 
         return "";
+    }
+
+    public String getDateCreated(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawJsonDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return relativeDate;
+    }
+
+    private String removeUrl(String commentstr)
+    {
+        String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+        Pattern p = Pattern.compile(urlPattern,Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(commentstr);
+        int i = 0;
+        while (m.find()) {
+            commentstr = commentstr.replaceAll(m.group(i),"").trim();
+            i++;
+        }
+        return commentstr;
     }
 }

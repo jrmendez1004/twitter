@@ -1,6 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -75,16 +82,29 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             createdAt = itemView.findViewById(R.id.tvCreatedAt);
 
             attached = itemView.findViewById(R.id.ivAttachedImage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        Tweet tweet = tweets.get(position);
+                        Intent intent = new Intent(context, DetailsActivity.class);
+                        intent.putExtra("tweet", Parcels.wrap(tweet));
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }
 
         public void bind(Tweet tweet) {
             body.setText(tweet.body);
             screen_name.setText(tweet.user.screenName);
             createdAt.setText(tweet.createdAt);
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            Glide.with(context).load(tweet.user.profileImageUrl).centerInside().transform(new RoundedCorners(100)).into(ivProfileImage);
 
             if(tweet.hasMedia){
-                Glide.with(context).load(tweet.embeddedMedia.get(0)).into(attached);
+                Glide.with(context).load(tweet.embeddedMedia.get(0)).centerInside().transform(new RoundedCorners(30)).into(attached);
             }
             //attached_images = itemView.findViewById(R.id.rvAttachedImages);
             /*adapter = new AttachedImagesAdapter(context, attImages);

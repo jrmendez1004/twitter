@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 public class AttachedImagesAdapter extends RecyclerView.Adapter<AttachedImagesAdapter.ViewHolder> {
@@ -47,7 +45,7 @@ public class AttachedImagesAdapter extends RecyclerView.Adapter<AttachedImagesAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            attachedImage = itemView.findViewById(R.id.ivAttached);
+            attachedImage = itemView.findViewById(R.id.ivDetailsImage);
         }
 
         public void bind(String image){

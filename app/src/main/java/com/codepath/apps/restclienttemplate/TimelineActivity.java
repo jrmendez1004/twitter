@@ -112,9 +112,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        if(REQUEST_CODE == requestCode && requestCode == RESULT_OK){
-            Log.i(TAG, "update recycler");
+    protected void onActivityResult(int requestCode, int resultCode, @org.jetbrains.annotations.Nullable Intent data) {
+        Log.i(TAG, "Back to timeline");
+        if(REQUEST_CODE == requestCode && resultCode == RESULT_OK){
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             tweets.add(0, tweet);
             adapter.notifyItemInserted(0);
@@ -132,7 +132,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onCompose(MenuItem menuItem){
         Intent intent = new Intent(this, ComposeActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     public void fetchTimelineAsync(int page) {
