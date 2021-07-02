@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -56,6 +57,9 @@ public class TimelineActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         populateHomeTimeline();
 
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(rvTweets.getContext(), 1);
+        rvTweets.addItemDecoration(mDividerItemDecoration);
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -72,9 +76,6 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setLogo(R.drawable.ic_launcher_twitter_round);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
     private void populateHomeTimeline() {

@@ -83,6 +83,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             attached = itemView.findViewById(R.id.ivAttachedImage);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,7 +101,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public void bind(Tweet tweet) {
             body.setText(tweet.body);
             screen_name.setText(tweet.user.screenName);
-            createdAt.setText(tweet.createdAt);
+            createdAt.setText("\u2022" + tweet.createdAt);
             Glide.with(context).load(tweet.user.profileImageUrl).centerInside().transform(new RoundedCorners(100)).into(ivProfileImage);
 
             if(tweet.hasMedia){
@@ -113,18 +114,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 attached.setVisibility(View.GONE);
             }
-            //attached_images = itemView.findViewById(R.id.rvAttachedImages);
-            /*adapter = new AttachedImagesAdapter(context, attImages);
-            if(tweet.hasMedia) {
-                if(tweet.embeddedMedia.size() > 1)
-                    attached_images.setLayoutManager(new GridLayoutManager(context, 2));
-                else
-                    attached_images.setLayoutManager(new GridLayoutManager(context, 1));
-                attached_images.setAdapter(adapter);
-                for(int i = 0; i < tweet.embeddedMedia.size(); i++)
-                    attImages.add(tweet.embeddedMedia.get(i));
-            }*/
-            //adapter.notifyDataSetChanged();
         }
     }
 }
